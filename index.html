@@ -768,15 +768,15 @@
     </div>
 
     <script>
+        // Configuração - URL do Web App
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwyAJ5nBLVSTdvHz0cZSqmJy1W-Eu78wjTldIm478A7vCE8weXXdf1ZDFXGS5Qof2oR/exec';
+        
         // Estado da aplicação
         const avaliacoes = {
             motorista: {},
             viatura: {}
         };
 
-        // Configuração - SUBSTITUA PELO SEU SCRIPT ID
-        const API_URL = 'https://script.google.com/macros/s/SEU_SCRIPT_ID/exec';
-        
         // Capturar parâmetro da viatura do QR Code
         const urlParams = new URLSearchParams(window.location.search);
         const viaturaRegistro = urlParams.get('viatura') || 'NAO_IDENTIFICADA';
@@ -894,7 +894,7 @@
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'text/plain;charset=utf-8'
                 },
                 body: JSON.stringify(dados)
             })
@@ -910,51 +910,18 @@
         }
 
         function fecharModal() {
-            // Tenta fechar a janela/aba
-            window.close();
-            
-            // Fallback para navegadores que bloqueiam window.close()
+            document.getElementById('modalSucesso').classList.remove('ativa');
             setTimeout(() => {
-                // Substitui o conteúdo com mensagem final
+                window.close();
+                // Fallback para navegadores que bloqueiam window.close()
                 document.body.innerHTML = `
-                    <div style="
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        min-height: 100vh;
-                        background: linear-gradient(180deg, #F8FAFC 0%, #E8F4F8 100%);
-                        font-family: 'Inter', sans-serif;
-                        color: #1B3A5C;
-                        text-align: center;
-                        padding: 20px;
-                    ">
-                        <div style="
-                            width: 80px;
-                            height: 80px;
-                            border: 3px solid #5BA4CF;
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            margin-bottom: 20px;
-                            font-size: 40px;
-                            color: #5BA4CF;
-                            font-weight: 700;
-                        ">✓</div>
-                        <h2 style="
-                            font-size: 1.2rem;
-                            margin-bottom: 10px;
-                            letter-spacing: 1px;
-                        ">AVALIAÇÃO REGISTRADA</h2>
-                        <p style="
-                            color: #666666;
-                            font-size: 0.9rem;
-                            margin-bottom: 20px;
-                        ">Obrigado pela participação.<br>Você pode fechar esta página.</p>
+                    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(180deg,#F8FAFC 0%,#E8F4F8 100%);font-family:'Inter',sans-serif;color:#1B3A5C;text-align:center;padding:20px;">
+                        <div style="width:80px;height:80px;border:3px solid #5BA4CF;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:40px;color:#5BA4CF;font-weight:700;">✓</div>
+                        <h2 style="font-size:1.2rem;margin-bottom:10px;letter-spacing:1px;">AVALIAÇÃO REGISTRADA</h2>
+                        <p style="color:#666666;font-size:0.9rem;">Obrigado pela participação.<br>Você pode fechar esta página.</p>
                     </div>
                 `;
-            }, 500);
+            }, 300);
         }
     </script>
 </body>
